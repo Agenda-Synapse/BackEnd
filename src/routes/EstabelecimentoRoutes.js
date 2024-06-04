@@ -57,6 +57,7 @@ router.delete(
     '/estabelecimentos/img/:id', 
     globalMid.verificaParametro, 
     estabelecimentoMid.existeEstabelecimentoId, 
+    estabelecimentoMid.existeImgId,
     estabelecimentoController.delImg
 )
 
