@@ -89,7 +89,8 @@ exports.delImg = async(parametro) => {
     const estabelecimento = await Estabelecimento.findByPk(id)
 
     const realImgPath = path.join(process.cwd(), estabelecimento.imagem)
-    console.log(realImgPath)
+    estabelecimento.imagem = ''
+    estabelecimento.save()
     await fs.unlinkSync(realImgPath)
 
 }

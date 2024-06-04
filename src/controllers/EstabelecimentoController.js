@@ -61,7 +61,7 @@ exports.update = async(req, res) => {
     try {
         
         const estabelecimento = await estabelecimentoRepo.update(req.params, req.body)
-        return res.status(200).json({ mensagem: 'Estabelecimento atualizado com sucesso!', estabelecimento })
+        return res.status(200).json({ mensagem: 'Estabelecimento atualizado com sucesso!'})
 
     } catch (error) {
         
