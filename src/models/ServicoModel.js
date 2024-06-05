@@ -15,11 +15,11 @@ const Servico = database.define('servico', {
         allowNull: false
     },
     duracao: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.STRING,
         allowNull: false
     },
     preco: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(5,2),
         allowNull: false
     }
 })

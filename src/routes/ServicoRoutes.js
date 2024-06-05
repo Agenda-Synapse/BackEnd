@@ -35,7 +35,6 @@ router.put(
     servicoMid.existeServicoId,
     servicoMid.existeEstabelecimento,
     servicoMid.verificaBody,
-    servicoMid.verificaBodyIgual,
     servicoController.update
 )
 

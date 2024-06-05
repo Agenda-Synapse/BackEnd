@@ -12,4 +12,4 @@ sincroniza()
 const PORT = process.env.PORT || 3000
 
 // Roda o servidor
-app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}.`))
+app.listen(PORT, () => console.log(`Ouvindo no endereço: http://localhost:${PORT}.`))

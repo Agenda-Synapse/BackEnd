@@ -42,8 +42,8 @@ exports.update = async(req, res) => {
     
     try {
         
-        const servico = await servicoRepo.update(req.params, req.body)
-        return res.status(200).json({ mensagem: 'Servico atualizado com sucesso!', servico })
+        await servicoRepo.update(req.params, req.body)
+        return res.status(200).json({ mensagem: 'Servico atualizado com sucesso!' })
 
     } catch (error) {
         

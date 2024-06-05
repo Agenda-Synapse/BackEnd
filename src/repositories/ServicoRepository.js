@@ -38,11 +38,12 @@ exports.update = async(parametro, corpo) => {
 
     const { id } = parametro
 
-    console.log(corpo)
-
     const servico = await Servico.findByPk(id)
+
+    console.log(typeof servico.preco)
+
     servico.set(corpo)
-    servico.save()
+    await servico.save()
 
 }
 
