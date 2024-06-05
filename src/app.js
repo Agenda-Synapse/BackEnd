@@ -4,7 +4,7 @@ const rotasEstabelecimento = require('./routes/EstabelecimentoRoutes')
 const rotasServico = require('./routes/ServicoRoutes')
 
 const app = express()
-app.use(express.json())
+app.use(express.json({ limit: 99999999 }))
 
 app.use(rotasUsuario)
 app.use(rotasEstabelecimento)
