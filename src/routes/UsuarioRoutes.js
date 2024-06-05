@@ -33,7 +33,6 @@ router.put(
     usuarioMid.existeUsuarioId, 
     usuarioMid.existeEstabelecimento, 
     usuarioMid.verificaBody,
-    usuarioMid.verificaBodyIgual, 
     usuarioController.update
 )
 

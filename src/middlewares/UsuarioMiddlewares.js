@@ -69,34 +69,3 @@ exports.verificaBody = async(req, res, next) => {
     return res.status(400).json({ mensagem: 'Informação faltando!' })
 
 }
-
-exports.verificaBodyIgual = async(req, res, next) => {
-    const { id } = req.params
-
-    const { nome, email, senha, cpf, cnpj, telefone, cargo, idEstabelecimento } = req.body
-
-    const usuario = await usuarioRepo.getById(id)
-
-    let cnpjCpf = (cpf !== usuario.cpf && cnpj !== usuario.cnpj)
-
-    if(cpf === '' || cnpj === '') {
-        cnpjCpf = (cpf !== usuario.cpf || cnpj !== usuario.cnpj)
-    } else {
-        cnpjCpf = (cpf !== usuario.cpf && cnpj !== usuario.cnpj)
-    }    
-
-    if(
-        nome !== usuario.nome
-        || email !== usuario.email
-        || senha !== usuario.senha
-        || cnpjCpf
-        || telefone !== usuario.telefone
-        || cargo !== usuario.cargo
-        || idEstabelecimento !== usuario.idEstabelecimento
-    ) {
-        return next()
-    }
-
-    return res.status(400).json({ mensagem: 'Para atualizar usuário alguma informação deve ser diferente!'})
-    
-}

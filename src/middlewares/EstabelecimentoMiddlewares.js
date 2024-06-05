@@ -91,21 +91,3 @@ exports.verificaUsuServ = async(req, res, next) => {
     return next()
 
 }
-
-exports.verificaBodyIgual = async(req, res, next) => {
-
-    const { id } = req.params
-    const { nome, imagem, endereco, categoria } = await estabelecimentoRepo.getById(id)
-
-    if(
-        nome !== req.body.nome 
-        || endereco !== req.body.endereco 
-        || imagem !== req.body.imagem 
-        || categoria !== req.body.categoria
-    ) {
-        return next()
-    }
-
-    return res.status(400).json({ mensagem: 'Para atualizar usuário alguma informação deve ser diferente!'})
-    
-}

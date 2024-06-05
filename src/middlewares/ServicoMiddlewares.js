@@ -52,36 +52,19 @@ exports.verificaBody = async(req, res, next) => {
 
     const { nome, duracao, preco, idEstabelecimento } = req.body
 
-    if(!!nome && !!duracao && !!preco && !!idEstabelecimento) {
-        return next()
+    if(!nome || !duracao || !preco || !idEstabelecimento ) {
+        return res.status(400).json({ mensagem: 'Informação faltando!' })
     }
 
-    return res.status(400).json({ mensagem: 'Informação faltando!' })
-
-}
-
-exports.verificaBodyIgual = async(req, res, next) => {
-    const { id } = req.params
-
-    let { nome, duracao, preco } = req.body
-
-    const servico = await Servico.findByPk(id)
-
-    preco = String(preco)
-
-    console.log(typeof preco, typeof servico.preco)
-
-    console.log(preco)
-
-    console.log(preco !== servico.preco)
-
-    if(
-        nome !== servico.nome
-        || duracao !== servico.duracao
-        || preco !== servico.preco
+    if( 
+        typeof nome !== 'string'
+        || typeof duracao !== 'string' 
+        || typeof preco !== 'number' 
+        || typeof idEstabelecimento !== 'number' 
     ) {
-        return next()
+        return res.status(400).json({ mensagem: 'Tipo dos campos invalidos!'})
     }
 
-    return res.status(400).json({ mensagem: 'Para atualizar usuário alguma informação deve ser diferente!'})
+    return next()
+
 }

@@ -39,7 +39,6 @@ router.put(
     globalMid.verificaParametro,
     estabelecimentoMid.existeEstabelecimentoId,
     estabelecimentoMid.verificaBody,
-    estabelecimentoMid.verificaBodyIgual,
     estabelecimentoController.update
 )
 
