@@ -5,7 +5,13 @@ const fs = require('fs')
 
 exports.getAll = async() => {
 
-    const todosEstabelecimentos = await Estabelecimento.findAll()
+    let todosEstabelecimentos = await Estabelecimento.findAll()
+
+    todosEstabelecimentos = todosEstabelecimentos.map( estabelecimento => {
+        estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
+        return estabelecimento
+    })
+
     return todosEstabelecimentos
 
 }
@@ -15,6 +21,7 @@ exports.getById = async(parametro) => {
 
         const { id } = parametro 
         const estabelecimento = await Estabelecimento.findByPk(id)
+        estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
         return estabelecimento
     
     } 
