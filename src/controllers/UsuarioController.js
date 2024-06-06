@@ -28,6 +28,20 @@ exports.getById = async(req, res) => {
     }
 }
 
+exports.getImgById = async(req, res) => {
+    try {
+        
+        const img = await usuarioRepo.getImgById(req.params)
+        return res.status(200).sendFile(img)
+
+    } catch (error) {
+        
+        console.log(error)
+        return res.status(200).json({ mensagem: 'Não foi possível pegar a imagem!'})
+
+    }
+}
+
 exports.create = async(req, res) => {
     try {
         
@@ -68,5 +82,17 @@ exports.del = async(req, res) => {
         console.log(error)
         return res.status(500).json({ mensagem: 'Não foi possível excluir usuário!' })
         
+    }
+}
+
+exports.delImg = async(req, res) => {
+    try {
+
+        await usuarioRepo.delImg(req.params)
+        return res.status(200).json({ mensagem: 'Imagem do usuario excluido com sucesso!' })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ mensagem: 'Não foi possível excluir imagem do usuario!' })
     }
 }

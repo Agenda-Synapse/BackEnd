@@ -6,6 +6,7 @@ const rotasServico = require('./routes/ServicoRoutes')
 
 const app = express()
 app.use(express.json({ limit: 99999999 }))
+app.use(cors())
 
 app.use(
     cors({

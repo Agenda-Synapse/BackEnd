@@ -5,10 +5,10 @@ const Usuario = require('../models/UsuarioModel')
 /* Verifica se já existe algum usuário com o mesmo login */
 exports.existe = async(req, res, next) => {
 
-    const { email } = req.body
+    const { telefone } = req.body
     
     const resultado = await Usuario.findOne({
-        where: { email }
+        where: { telefone }
     })
 
     if(!!resultado) {
@@ -37,11 +37,15 @@ exports.existeEstabelecimento = async(req, res, next) => {
 
     const { cargo } = req.body
 
-    if (cargo !== 2) {
+    if (cargo === 'cliente') {
         return next()
     }
 
     const { idEstabelecimento } = req.body
+
+    if( idEstabelecimento === null) {
+        return next()
+    }
 
     const estabelecimento = await estabelecimentoRepo.getById(idEstabelecimento)
 
@@ -55,17 +59,41 @@ exports.existeEstabelecimento = async(req, res, next) => {
 
 exports.verificaBody = async(req, res, next) => {
 
-    const { nome, email, senha, cpf, cnpj, telefone, cargo, idEstabelecimento } = req.body
+    const { nome, email, senha, cpf, cnpj, telefone, cargo, imagem, idEstabelecimento } = req.body
 
-    if(cargo === 2) {
+    if(cargo !== 'proprietario' && cargo !== 'cliente') {
+        return res.status(400).json({ mensagem: 'Cargo errado! Os cargos são cliente e proprietario.'})
+    }
+
+    if(cargo === 'proprietario') {
 
         cpf_cnpj = !!(cpf || cnpj)
 
-        if(!!nome && !!email && !!senha && cpf_cnpj && !!cargo && !!telefone && !!idEstabelecimento) {
+        if(!!nome && !!email && !!senha && cpf_cnpj && !!cargo && !!telefone && !!imagem) {
+            return next()
+        }
+    }
+
+    if(cargo === 'cliente') {
+        if(!!nome && !!telefone) {
             return next()
         }
     }
 
     return res.status(400).json({ mensagem: 'Informação faltando!' })
+
+}
+
+exports.existeImgId = async(req, res, next) => {
+
+    const { id } = req.params
+
+    const usuario = await Usuario.findByPk(id)
+
+    if(!!usuario.imagem) {
+        return next()
+    }
+
+    return res.status(400).json({ mensagem: 'Não há imagem neste usuario!'})    
 
 }
