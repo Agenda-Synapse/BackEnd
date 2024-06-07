@@ -1,6 +1,8 @@
 const Estabelecimento = require('../models/EstabelecimentoModel')
-const { v4 } = require('uuid');
-const path = require('path');
+const Servico = require('../models/ServicoModel')
+const Usuario = require('../models/UsuarioModel')
+const { v4 } = require('uuid')
+const path = require('path')
 const fs = require('fs')
 
 exports.getAll = async() => {
@@ -13,6 +15,19 @@ exports.getAll = async() => {
     })
 
     return todosEstabelecimentos
+
+}
+
+// Get all serviços
+exports.getAllServicos = async(parametro) => {
+    
+    const { id } = parametro // id do estabelecimento
+
+    const todosServicos = await Servico.findAll({
+        where: { idEstabelecimento: id }
+    })
+
+    return todosServicos
 
 }
 

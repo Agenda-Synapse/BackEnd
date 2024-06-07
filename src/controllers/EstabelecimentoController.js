@@ -14,11 +14,25 @@ exports.getAll = async(req, res) => {
     }
 }
 
+exports.getServicoById = async(req, res) => {
+    try {
+
+        const servicos =  await estabelecimentoRepo.getAllServicos(req.params)
+        return res.status(200).json(servicos)
+
+    } catch (error) {
+        
+        console.log(error)
+        return res.status(500).json({ mensagem: 'Não foi possível bucar por serviços!' })
+
+    }
+}
+
 exports.getById = async(req, res) => {
     try {
 
-        const resultado =  await estabelecimentoRepo.getById(req.params)
-        return res.status(200).json(resultado)
+        const estabelecimento =  await estabelecimentoRepo.getById(req.params)
+        return res.status(200).json(estabelecimento)
 
     } catch (error) {
         

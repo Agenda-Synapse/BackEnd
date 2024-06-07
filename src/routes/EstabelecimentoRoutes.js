@@ -2,6 +2,7 @@ const { Router } = require('express')
 
 const estabelecimentoController = require('../controllers/EstabelecimentoController')
 const estabelecimentoMid = require('../middlewares/EstabelecimentoMiddlewares')
+const ServicoMid = require('../middlewares/ServicoMiddlewares')
 const globalMid = require('../middlewares/middlewareGlobal')
 
 const router = Router()
@@ -15,6 +16,15 @@ router.get(
     globalMid.verificaParametro, 
     estabelecimentoMid.existeEstabelecimentoId, 
     estabelecimentoController.getById
+)
+
+// GetServiço from EstabelecimentoById
+router.get(
+    '/estabelecimentos/servicos/:id', 
+    globalMid.verificaParametro, 
+    estabelecimentoMid.existeEstabelecimentoId,
+    ServicoMid.existeServicoId,
+    estabelecimentoController.getServicoById
 )
 
 // GetImageById

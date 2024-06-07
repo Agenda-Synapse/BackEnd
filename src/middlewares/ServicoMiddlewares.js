@@ -28,7 +28,7 @@ exports.existeServicoId = async(req, res, next) => {
     const existe = await Servico.findByPk(id)
 
     if(!existe){
-        return res.status(400).json({ mensagem: 'Serviço inexistente!' })
+        return res.status(404).json({ mensagem: 'Serviço inexistente!' })
     }
 
     return next()
@@ -44,7 +44,7 @@ exports.existeEstabelecimento = async(req, res, next) => {
         return next()
     }
 
-    return res.status(400).json({ mensagem: 'Não há estebelecimento com esse id!' })
+    return res.status(404).json({ mensagem: 'Não há estebelecimento com esse id!' })
 
 }
 

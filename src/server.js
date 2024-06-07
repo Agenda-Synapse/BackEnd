@@ -6,7 +6,7 @@ const app = require('./app')
 require('dotenv').config()
 
 // Sincroniza com o banco de dados
-sincroniza()
+sincroniza( )
 
 // Portas
 const PORT = process.env.PORT || 3000

@@ -55,7 +55,7 @@ exports.existeImgId = async(req, res, next) => {
         return next()
     }
 
-    return res.status(400).json({ mensagem: 'Não há imagem neste estabelecimento!'})
+    return res.status(404).json({ mensagem: 'Não há imagem neste estabelecimento!'})
 
 }
 

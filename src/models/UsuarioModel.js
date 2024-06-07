@@ -32,14 +32,12 @@ const Usuario = database.define('usuario', {
         allowNull: false,
         unique: true
     },
-    imagem: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
+    imagem: Sequelize.STRING,
     cargo: {
         type: Sequelize.ENUM('cliente','proprietario'),
         allowNull: false
-    }
+    },
+    status: Sequelize.BOOLEAN
 })
 
 Usuario.belongsTo(Estabelecimento, {
