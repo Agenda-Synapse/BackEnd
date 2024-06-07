@@ -9,6 +9,14 @@ const router = Router()
 // GetALL
 router.get('/turnos', turnoController.getAll)
 
+// GetById 
+router.get(
+    '/turnos/:id',
+    globalMid.verificaParametro,
+    turnoMid.existeTurnoId,
+    turnoController.getById
+)
+
 // Create
 router.post(
     '/turnos',
@@ -16,14 +24,6 @@ router.post(
     turnoMid.existe,
     turnoMid.existeEstabelecimento,
     turnoController.create
-)
-
-// GetById 
-router.get(
-    '/turnos/:id',
-    globalMid.verificaParametro,
-    turnoMid.existeTurnoId,
-    turnoController.getById
 )
 
 // Update
