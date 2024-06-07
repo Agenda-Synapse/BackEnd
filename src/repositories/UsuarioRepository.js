@@ -46,7 +46,7 @@ exports.getImgById = async(parametro) => {
 exports.create = async(corpo) => {
 
     const base64Data = corpo.imagem.replace(/^data:image\/png;base64,/, "");
-    const imgPath = `imgs/${v4()}.png`;
+    const imgPath = `imgs_usuario/${v4()}.png`;
     fs.writeFileSync(imgPath, base64Data, 'base64')
     corpo.imagem = imgPath
 
@@ -65,7 +65,7 @@ exports.update = async(parametro, corpo) => {
         await this.delimg(parametro)  
 
         const base64Data = corpo.imagem.replace(/^data:image\/png;base64,/, "");
-        const imgPath = `imgs/${v4()}.png`;
+        const imgPath = `imgs_usuario/${v4()}.png`;
         fs.writeFileSync(imgPath, base64Data, 'base64')
         corpo.imagem = imgPath
     }
