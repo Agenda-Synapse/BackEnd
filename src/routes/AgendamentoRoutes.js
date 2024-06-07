@@ -23,8 +23,9 @@ router.post(
     '/agendamentos',
     agendamentoMid.verificaBody,
     agendamentoMid.existe,
-    agendamentoMid.existeUsuario,
-    agendamentoMid.existeServico,
+    agendamentoMid.existeUsuario,                   
+    agendamentoMid.existeServico,      
+    agendamentoMid.usuarioTemServico,      
     agendamentoController.create 
 )
 

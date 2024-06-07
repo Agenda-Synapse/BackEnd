@@ -2,7 +2,6 @@ const { Router } = require('express')
 
 const turnoController = require('../controllers/TurnoController')
 const turnoMid = require('../middlewares/TurnoMiddleware')
-const usuarioMid = require('../middlewares/UsuarioMiddlewares')
 const globalMid = require('../middlewares/middlewareGlobal')
 
 const router = Router()
@@ -14,8 +13,8 @@ router.get('/turnos', turnoController.getAll)
 router.post(
     '/turnos',
     turnoMid.verificaBody,
-    usuarioMid.existeEstabelecimento,
     turnoMid.existe,
+    turnoMid.existeEstabelecimento,
     turnoController.create
 )
 

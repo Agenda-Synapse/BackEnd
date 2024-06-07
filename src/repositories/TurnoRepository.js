@@ -7,8 +7,7 @@ exports.getAll = async() => {
 
 exports.create = async(corpo) => {
 
-    const { hora_inicio, hora_fim, dias_semana, idEstabelecimento  } = corpo
-    const novoTurno = await Turno.create({ hora_inicio, hora_fim, dias_semana, idEstabelecimento })
+    const novoTurno = await Turno.create(corpo)
     return novoTurno
 }
 
@@ -17,6 +16,7 @@ exports.getById = async(parametro) => {
     const { id } = parametro
 
     const turno = await Turno.findByPk(id)
+    
     return turno
 
 }
@@ -33,12 +33,12 @@ exports.del = async(parametro) => {
 
 exports.update = async(parametro, corpo) => {
     
-        const { id } = parametro
+    const { id } = parametro
 
-        console.log(corpo)
+    console.log(corpo)
     
-        const turno = await Turno.findByPk(id)
-        turno.set(corpo)
-        turno.save()
+    const turno = await Turno.findByPk(id)
+    turno.set(corpo)
+    turno.save()
         
 }

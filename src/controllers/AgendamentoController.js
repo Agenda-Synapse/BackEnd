@@ -43,7 +43,7 @@ exports.create = async(req, res) => {
 exports.del = async(req, res) => {
     try {
         
-        agendaRepo.del(req.params)
+        await agendaRepo.del(req.params)
         return res.status(200).json({ mensagem: 'Agendamento deletado com sucesso!' })
 
     } catch (error) {

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const { database } = require('../configs/dbConnection')
-const Usuarios = require('./UsuarioModel')
+const Estabelecimento = require('./EstabelecimentoModel')
 
 const Turno = database.define('turno', {
     id: {
@@ -24,8 +24,13 @@ const Turno = database.define('turno', {
     }
 })
 
-Turno.belongsTo(Usuarios, {
-    foreignKey: 'idUsuario'
+Turno.belongsTo(Estabelecimento, {
+    constraint: true,
+    foreignKey: 'idEstabelecimento'
+})
+
+Estabelecimento.hasMany(Turno, {
+    foreignKey: 'idEstabelecimento'
 })
 
 module.exports = Turno
