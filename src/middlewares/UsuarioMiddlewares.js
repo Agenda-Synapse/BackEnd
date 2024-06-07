@@ -69,7 +69,7 @@ exports.verificaBody = async(req, res, next) => {
 
         cpf_cnpj = !!(cpf || cnpj)
 
-        if(!!nome && !!email && !!senha && cpf_cnpj && !!cargo && !!telefone && !!imagem) {
+        if(!!nome && !!email && !!senha && cpf_cnpj && !!cargo && !!telefone) {
             return next()
         }
     }
