@@ -3,7 +3,7 @@ const Servico = require('./ServicoModel')
 const Usuario = require('./UsuarioModel')
 const { database } = require('../configs/dbConnection')
 
-const Agendamento = database.define('Agendamento', {
+const Agendamento = database.define('agendamento', {
     
     id: {
         type: Sequelize.INTEGER,
