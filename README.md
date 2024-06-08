@@ -46,10 +46,10 @@ npm start
 ```
 
 ## Autores
-Eduardo Moraes
-Telefone: (14)99870-0674
-Email: eduardo.moraes2040@gmail.com
+Eduardo Moraes  
+Telefone: (14)99870-0674  
+Email: eduardo.moraes2040@gmail.com  
 
-Enzo Modena
-Telefone: (14)99714-9854
-Email: enzomodena@gmail.com
+Enzo Modena  
+Telefone: (14)99714-9854  
+Email: enzomodena@gmail.com  
