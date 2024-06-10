@@ -11,8 +11,7 @@ const Usuario = database.define('usuario', {
         unique: true
     },
     nome: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
     },
     email: {
         type: Sequelize.STRING,
@@ -29,12 +28,10 @@ const Usuario = database.define('usuario', {
     },
     telefone: {
         type: Sequelize.STRING,
-        allowNull: false,
         unique: true
     },
     cargo: {
-        type: Sequelize.ENUM('cliente','proprietario'),
-        allowNull: false
+        type: Sequelize.ENUM('cliente','proprietario')
     },
     status: Sequelize.BOOLEAN
 })

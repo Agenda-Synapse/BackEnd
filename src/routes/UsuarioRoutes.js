@@ -21,6 +21,7 @@ router.get(
 router.post(
     '/usuarios', 
     usuarioMid.verificaBody, 
+    usuarioMid.ajustaCpfCnpj,
     usuarioMid.existe, 
     usuarioMid.existeEstabelecimento, 
     usuarioController.create

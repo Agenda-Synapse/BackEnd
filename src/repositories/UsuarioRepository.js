@@ -27,8 +27,13 @@ exports.getById = async(parametro) => {
 
 exports.create = async(corpo) => {
 
-    const novoUsuario = await Usuario.create(corpo)
-    return novoUsuario
+    if(corpo.cargo === 'cliente') {
+        const novoCliente = await Usuario.create(corpo)
+        return novoCliente
+    }
+
+    const novoProprietario = await Usuario.create(corpo)
+    return novoProprietario
 
 }
 

@@ -38,7 +38,7 @@ exports.existeEstabelecimento = async(req, res, next) => {
     const { cargo } = req.body
 
     if (cargo === 'cliente') {
-        return next()
+        return next() 
     }
 
     const { idEstabelecimento } = req.body
@@ -59,7 +59,7 @@ exports.existeEstabelecimento = async(req, res, next) => {
 
 exports.verificaBody = async(req, res, next) => {
 
-    const { nome, email, senha, cpf, cnpj, telefone, cargo } = req.body
+    const { nome, email, senha, cpfOuCnpj, telefone, cargo } = req.body
 
     if(cargo !== 'proprietario' && cargo !== 'cliente') {
         return res.status(400).json({ mensagem: 'Cargo errado! Os cargos são cliente e proprietario.'})
@@ -67,9 +67,7 @@ exports.verificaBody = async(req, res, next) => {
 
     if(cargo === 'proprietario') {
 
-        cpf_cnpj = !!(cpf || cnpj)
-
-        if(!!nome && !!email && !!senha && cpf_cnpj && !!cargo && !!telefone) {
+        if(!!nome && !!email && !!senha && !!cpfOuCnpj && !!cargo && !!telefone) {
             return next()
         }
 
@@ -82,5 +80,26 @@ exports.verificaBody = async(req, res, next) => {
     }
 
     return res.status(400).json({ mensagem: 'Informação faltando!' })
+
+}
+
+exports.ajustaCpfCnpj = async(req, res, next) => {
+
+    if (!req.cpfOuCnpj) {
+        return next()
+    }
+
+    const { cpfOuCnpj } = req.body
+
+    let cpf = ""
+    let cnpj = ""
+
+    if(cpfOuCnpj.length > 11) cnpj = cpfOuCnpj
+    else cpf = cpfOuCnpj
+
+    delete req.body.cpfOuCnpj
+    
+    req.body["cpf"] = cpf
+    req.body["cnpj"] = cnpj
 
 }
