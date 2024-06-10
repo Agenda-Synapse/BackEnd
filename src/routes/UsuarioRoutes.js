@@ -20,7 +20,8 @@ router.get(
 // Create
 router.post(
     '/usuarios', 
-    usuarioMid.verificaBody, 
+    usuarioMid.verificaBody,
+    usuarioMid.hashSenha, 
     usuarioMid.ajustaCpfCnpj,
     usuarioMid.existe, 
     usuarioMid.existeEstabelecimento, 

@@ -1,6 +1,7 @@
 const estabelecimentoRepo = require('../repositories/EstabelecimentoRepository')
 const usuarioRepo = require('../repositories/UsuarioRepository')
 const Usuario = require('../models/UsuarioModel')
+const bcrypt = require('bcrypt')
 
 /* Verifica se já existe algum usuário com o mesmo login */
 exports.existe = async(req, res, next) => {
@@ -43,15 +44,11 @@ exports.existeEstabelecimento = async(req, res, next) => {
 
     const { idEstabelecimento } = req.body
 
-    if( idEstabelecimento === null ) {
-        return next()
-    }
+    if( idEstabelecimento === null ) return next()
 
     const estabelecimento = await estabelecimentoRepo.getById(idEstabelecimento)
 
-    if(!!estabelecimento) {
-        return next()
-    }
+    if(!!estabelecimento) return next()
 
     return res.status(404).json({ mensagem: 'Não há estebelecimento com esse id!' })
 
@@ -67,16 +64,12 @@ exports.verificaBody = async(req, res, next) => {
 
     if(cargo === 'proprietario') {
 
-        if(!!nome && !!email && !!senha && !!cpfOuCnpj && !!cargo && !!telefone) {
-            return next()
-        }
+        if(!!nome && !!email && !!senha && !!cpfOuCnpj && !!cargo && !!telefone) return next()
 
     }
 
     if(cargo === 'cliente') {
-        if(!!nome && !!telefone) {
-            return next()
-        }
+        if(!!nome && !!telefone) return next()
     }
 
     return res.status(400).json({ mensagem: 'Informação faltando!' })
@@ -85,9 +78,7 @@ exports.verificaBody = async(req, res, next) => {
 
 exports.ajustaCpfCnpj = async(req, res, next) => {
 
-    if (!req.cpfOuCnpj) {
-        return next()
-    }
+    if (!req.cpfOuCnpj) return next()
 
     const { cpfOuCnpj } = req.body
 
@@ -101,5 +92,15 @@ exports.ajustaCpfCnpj = async(req, res, next) => {
     
     req.body["cpf"] = cpf
     req.body["cnpj"] = cnpj
+
+}
+
+exports.hashSenha = async(req, res, next) => {
+
+    if(req.cargo === 'cliente') return next()
+    
+    req.body.senha = await bcrypt.hash(req.body.senha, 13)
+
+    return next()
 
 }
