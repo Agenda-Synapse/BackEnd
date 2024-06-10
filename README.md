@@ -30,7 +30,7 @@ https://www.postman.com/api-synapse/workspace/agendaaki-api/collection/34531020-
 git clone https://github.com/Agenda-Synapse/BackEnd.git
 ```
 
-2. Entrar no diretório clonado
+2. Entrar no repostório clonado
 ```bash 
 cd BackEnd/
 ```
