@@ -1,4 +1,2 @@
 /node_modules/*
-/imgs_estabelecimento/*
-/imgs_usuario/*
 *.env
