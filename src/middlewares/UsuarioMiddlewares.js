@@ -59,7 +59,7 @@ exports.existeEstabelecimento = async(req, res, next) => {
 
 exports.verificaBody = async(req, res, next) => {
 
-    const { nome, email, senha, cpf, cnpj, telefone, cargo, imagem, idEstabelecimento } = req.body
+    const { nome, email, senha, cpf, cnpj, telefone, cargo } = req.body
 
     if(cargo !== 'proprietario' && cargo !== 'cliente') {
         return res.status(400).json({ mensagem: 'Cargo errado! Os cargos são cliente e proprietario.'})
