@@ -43,7 +43,7 @@ exports.existeEstabelecimento = async(req, res, next) => {
 
     const { idEstabelecimento } = req.body
 
-    if( idEstabelecimento === null) {
+    if( idEstabelecimento === null ) {
         return next()
     }
 
@@ -72,6 +72,7 @@ exports.verificaBody = async(req, res, next) => {
         if(!!nome && !!email && !!senha && cpf_cnpj && !!cargo && !!telefone) {
             return next()
         }
+
     }
 
     if(cargo === 'cliente') {
@@ -81,19 +82,5 @@ exports.verificaBody = async(req, res, next) => {
     }
 
     return res.status(400).json({ mensagem: 'Informação faltando!' })
-
-}
-
-exports.existeImgId = async(req, res, next) => {
-
-    const { id } = req.params
-
-    const usuario = await Usuario.findByPk(id)
-
-    if(!!usuario.imagem) {
-        return next()
-    }
-
-    return res.status(404).json({ mensagem: 'Não há imagem neste usuario!'})    
 
 }
