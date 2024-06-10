@@ -17,15 +17,6 @@ router.get(
     usuarioController.getById
 )
 
-// GetImageById
-router.get(
-    '/usuarios/img/:id', 
-    globalMid.verificaParametro, 
-    usuarioMid.existeUsuarioId,
-    usuarioMid.existeImgId,
-    usuarioController.getImgById
-)
-
 // Create
 router.post(
     '/usuarios', 
@@ -51,15 +42,6 @@ router.delete(
     globalMid.verificaParametro, 
     usuarioMid.existeUsuarioId, 
     usuarioController.del
-)
-
-// Delete Img
-router.delete(
-    '/estabelecimentos/img/:id', 
-    globalMid.verificaParametro, 
-    usuarioMid.existeUsuarioId, 
-    usuarioMid.existeImgId,
-    usuarioController.delImg
 )
 
 module.exports = router
