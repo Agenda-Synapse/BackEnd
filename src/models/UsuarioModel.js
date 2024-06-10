@@ -32,7 +32,6 @@ const Usuario = database.define('usuario', {
         allowNull: false,
         unique: true
     },
-    imagem: Sequelize.STRING,
     cargo: {
         type: Sequelize.ENUM('cliente','proprietario'),
         allowNull: false
