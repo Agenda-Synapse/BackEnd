@@ -3,7 +3,7 @@ const estabelecimentoRepo = require('../repositories/EstabelecimentoRepository')
 exports.getAll = async(req, res) => {
     try {
         
-        const resultado = await estabelecimentoRepo.getAll()
+        const resultado = await estabelecimentoRepo.getAll(req.query)
         return res.status(200).json(resultado)
 
     } catch (error) {

@@ -5,16 +5,36 @@ const { v4 } = require('uuid')
 const path = require('path')
 const fs = require('fs')
 
-exports.getAll = async() => {
+exports.getAll = async(query) => {
 
-    let todosEstabelecimentos = await Estabelecimento.findAll()
+    const { filtro } = query
 
-    todosEstabelecimentos = todosEstabelecimentos.map( estabelecimento => {
-        estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
-        return estabelecimento
-    })
+    if(!!query) {
+        let todosEstabelecimentos = await Estabelecimento.findAll({
 
-    return todosEstabelecimentos
+            where: { categoria: filtro }
+        })
+
+        todosEstabelecimentos = todosEstabelecimentos.map( estabelecimento => {
+            estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
+            return estabelecimento
+        })
+    
+        return todosEstabelecimentos
+
+    } 
+    else {
+
+        let todosEstabelecimentos = await Estabelecimento.findAll()
+
+        todosEstabelecimentos = todosEstabelecimentos.map( estabelecimento => {
+            estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
+            return estabelecimento
+        })
+    
+        return todosEstabelecimentos
+        
+    }
 
 }
 
