@@ -149,3 +149,23 @@ exports.hashSenha = async(req, res, next) => {
     return next()
 
 }
+
+exports.verificaToken = async(req, res, next) => {
+    const token = req.header['authorization']
+
+    try {
+
+        jwt.verify(token, process.env.SECRET, (decoded) => {
+            req.usuarioId = decoded.usuarioId
+        })
+        
+        return next()
+        
+    } catch (error) {
+        
+        console.log(error)
+        return res.status(401).end()
+
+    }
+    
+}
