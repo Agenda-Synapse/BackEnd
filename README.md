@@ -17,7 +17,7 @@ https://www.postman.com/api-synapse/workspace/agendaaki-api/collection/34531020-
 
  ## Modelo conceitual
 
-![Modelagem do banco:](/assets/ModelagemBanco.png)
+![Modelagem do banco:](/.assets/ModelagemBanco.png)
 
 ## Como executar
 
