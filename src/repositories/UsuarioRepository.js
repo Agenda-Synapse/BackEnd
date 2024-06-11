@@ -1,7 +1,5 @@
 const Usuario = require('../models/UsuarioModel')
-const { v4 } = require('uuid');
-const path = require('path');
-const fs = require('fs')
+const jwt = require('jsonwebtoken')
 
 exports.getAll = async() => {
 
@@ -55,5 +53,15 @@ exports.del = async(parametro) => {
     await Usuario.destroy({
         where: { id }
     })
+
+}
+
+exports.geraToken = async(corpo) => {
+
+    const { usuarioId } = corpo
+
+    const token = await jwt.sign({ usuarioId: usuarioId }, process.env.SECRET, { expiresIn: '5m' })
+    
+    return token
 
 }

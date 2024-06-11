@@ -28,10 +28,24 @@ router.post(
     usuarioController.create
 )
 
+// Login proprietário
+router.post(
+    '/proprietarios/login',
+    usuarioMid.bodyLoginProp,
+    usuarioController.geraToken
+)
+
+// Login cliente
+router.post(
+    '/usuarios/login',
+    usuarioMid.bodyLoginUsuario,
+    usuarioController.geraToken
+)
+
 // Put
 router.put(
     '/usuarios/:id', 
-    globalMid.verificaParametro, 
+    globalMid.verificaParametro,
     usuarioMid.existeUsuarioId, 
     usuarioMid.existeEstabelecimento, 
     usuarioMid.verificaBody,

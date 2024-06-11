@@ -1,6 +1,7 @@
 const estabelecimentoRepo = require('../repositories/EstabelecimentoRepository')
 const usuarioRepo = require('../repositories/UsuarioRepository')
 const Usuario = require('../models/UsuarioModel')
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 /* Verifica se já existe algum usuário com o mesmo login */
@@ -76,9 +77,51 @@ exports.verificaBody = async(req, res, next) => {
 
 }
 
+exports.bodyLoginProp = async(req, res, next) => {
+
+    const { email, senha } = req.body
+    
+    const usuario = await Usuario.findOne({
+        where: { email }
+    })
+
+
+    if(!!usuario) {
+
+        const senhasiguais = await bcrypt.compare(senha, usuario.senha)
+
+        if(senhasiguais) { 
+            req.body.usuarioId = usuario.id
+            return next()
+        }
+    }
+
+    return res.status(401).json({ mensagem: 'Email ou senha invalido!' })
+
+}
+
+exports.bodyLoginUsuario = async(req, res, next) => {
+
+    const { nome, telefone } = req.body
+    
+    const usuario = await Usuario.findOne({
+        where: { telefone }
+    })
+
+    if(!!usuario) {
+        if(nome === usuario.nome) { 
+            req.body.usuarioId = usuario.id
+            return next()
+        }
+    }
+
+    return res.status(401).json({ mensagem: 'Nome ou telefone invalidos' })
+
+}
+
 exports.ajustaCpfCnpj = async(req, res, next) => {
 
-    if (!req.cpfOuCnpj) return next()
+    if (!req.body.cpfOuCnpj) return next()
 
     const { cpfOuCnpj } = req.body
 
@@ -90,14 +133,16 @@ exports.ajustaCpfCnpj = async(req, res, next) => {
 
     delete req.body.cpfOuCnpj
     
-    req.body["cpf"] = cpf
-    req.body["cnpj"] = cnpj
+    req.body.cpf = cpf
+    req.body.cnpj = cnpj
+    
+    return next()
 
 }
 
 exports.hashSenha = async(req, res, next) => {
 
-    if(req.cargo === 'cliente') return next()
+    if(req.body.cargo === 'cliente') return next()
     
     req.body.senha = await bcrypt.hash(req.body.senha, 13)
 
