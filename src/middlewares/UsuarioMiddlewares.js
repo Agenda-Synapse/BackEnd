@@ -9,25 +9,22 @@ exports.existe = async(req, res, next) => {
 
     const { telefone, email } = req.body
     
-    const resultado1 = await Usuario.findOne({
+    const resultado = await Usuario.findOne({
         where: { telefone }
     })
 
-    if(!!email) {
-        const resultado2 = await Usuario.findOne({
-            where: { email }
-        })
-
-        if(!resultado && !resultado2) {
-            return res.status(200).json({ mensagem: 'Usuario já existe!' })
-        }
-    }
-
-    if(!!resultado) {
+    if(!email) {
+        if(!resultado) return next()
         return res.status(200).json({ mensagem: 'Usuario já existe!' })
     }
 
-    return next()
+    const resultado2 = await Usuario.findOne({
+        where: { email }
+    })
+
+    if(!resultado && !resultado2) return next()
+
+    return res.status(200).json({ mensagem: 'Usuario já existe!' })
 
 }
 
