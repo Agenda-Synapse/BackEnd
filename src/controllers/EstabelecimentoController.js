@@ -59,8 +59,8 @@ exports.getImgById = async(req, res) => {
 exports.create = async(req, res) => {
     try {
         
-        await estabelecimentoRepo.create(req.body)
-        return res.status(201).json({ mensagem: 'Estabelecimento criado com sucesso!' })
+        const estabelecimento = await estabelecimentoRepo.create(req.body)
+        return res.status(201).json({ mensagem: 'Estabelecimento criado com sucesso!', estabelecimento: estabelecimento.id })
 
     } catch (error) {
 
