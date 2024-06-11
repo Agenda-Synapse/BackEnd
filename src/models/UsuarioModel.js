@@ -11,17 +11,14 @@ const Usuario = database.define('usuario', {
         unique: true
     },
     nome: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
     },
     email: {
         type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
+        unique: true
     },
     senha: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
     },
     cpf: {
         type: Sequelize.STRING
@@ -34,9 +31,9 @@ const Usuario = database.define('usuario', {
         unique: true
     },
     cargo: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    }
+        type: Sequelize.ENUM('cliente','proprietario')
+    },
+    status: Sequelize.BOOLEAN
 })
 
 Usuario.belongsTo(Estabelecimento, {

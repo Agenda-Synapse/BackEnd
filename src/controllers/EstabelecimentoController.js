@@ -3,7 +3,7 @@ const estabelecimentoRepo = require('../repositories/EstabelecimentoRepository')
 exports.getAll = async(req, res) => {
     try {
         
-        const resultado = await estabelecimentoRepo.getAll()
+        const resultado = await estabelecimentoRepo.getAll(req.query)
         return res.status(200).json(resultado)
 
     } catch (error) {
@@ -14,11 +14,25 @@ exports.getAll = async(req, res) => {
     }
 }
 
+exports.getServicoById = async(req, res) => {
+    try {
+
+        const servicos =  await estabelecimentoRepo.getAllServicos(req.params)
+        return res.status(200).json(servicos)
+
+    } catch (error) {
+        
+        console.log(error)
+        return res.status(500).json({ mensagem: 'Não foi possível bucar por serviços!' })
+
+    }
+}
+
 exports.getById = async(req, res) => {
     try {
 
-        const resultado =  await estabelecimentoRepo.getById(req.params)
-        return res.status(200).json(resultado)
+        const estabelecimento =  await estabelecimentoRepo.getById(req.params)
+        return res.status(200).json(estabelecimento)
 
     } catch (error) {
         
@@ -45,8 +59,8 @@ exports.getImgById = async(req, res) => {
 exports.create = async(req, res) => {
     try {
         
-        await estabelecimentoRepo.create(req.body)
-        return res.status(201).json({ mensagem: 'Estabelecimento criado com sucesso!' })
+        const estabelecimento = await estabelecimentoRepo.create(req.body)
+        return res.status(201).json({ mensagem: 'Estabelecimento criado com sucesso!', estabelecimento: estabelecimento.id })
 
     } catch (error) {
 
@@ -61,7 +75,7 @@ exports.update = async(req, res) => {
     try {
         
         const estabelecimento = await estabelecimentoRepo.update(req.params, req.body)
-        return res.status(200).json({ mensagem: 'Estabelecimento atualizado com sucesso!', estabelecimento })
+        return res.status(200).json({ mensagem: 'Estabelecimento atualizado com sucesso!'})
 
     } catch (error) {
         

@@ -70,3 +70,18 @@ exports.del = async(req, res) => {
         
     }
 }
+
+exports.geraToken = async(req, res) => {
+
+    try {
+    
+        const token = await usuarioRepo.geraToken(req.body)
+        return res.status(200).json({ auth: true, token })
+
+    } catch (error) {
+        
+        console.log(error)
+        return res.status(500).json({ mensagem: 'Erro ao gerar token!' })
+
+    }
+}

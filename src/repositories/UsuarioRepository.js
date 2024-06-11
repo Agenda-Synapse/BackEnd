@@ -1,8 +1,12 @@
 const Usuario = require('../models/UsuarioModel')
+const jwt = require('jsonwebtoken')
 
 exports.getAll = async() => {
-    const usuarios = await Usuario.findAll()
+
+    let usuarios = await Usuario.findAll()
+
     return usuarios
+
 }
 
 exports.getById = async(parametro) => {
@@ -21,17 +25,13 @@ exports.getById = async(parametro) => {
 
 exports.create = async(corpo) => {
 
-    const { nome, email, senha, cpf, cnpj, telefone, cargo, idEstabelecimento  } = corpo
-    
-    if(cargo === 2) {
-        
-        const novoProprietario = await Usuario.create({ nome, email, senha, cpf, cnpj, telefone, cargo, idEstabelecimento })
-        return novoProprietario
-        
+    if(corpo.cargo === 'cliente') {
+        const novoCliente = await Usuario.create(corpo)
+        return novoCliente
     }
 
-    const novoCliente = await Usuario.create({ nome, email, senha, telefone, cargo })
-    return novoCliente
+    const novoProprietario = await Usuario.create(corpo)
+    return novoProprietario
 
 }
 
@@ -40,6 +40,7 @@ exports.update = async(parametro, corpo) => {
     const { id } = parametro
 
     const usuario = await this.getById(id)
+
     usuario.set(corpo)
     usuario.save()
 
@@ -52,5 +53,15 @@ exports.del = async(parametro) => {
     await Usuario.destroy({
         where: { id }
     })
+
+}
+
+exports.geraToken = async(corpo) => {
+
+    const { usuarioId } = corpo
+
+    const token = await jwt.sign({ usuarioId: usuarioId }, process.env.SECRET, { expiresIn: '5m' })
+    
+    return token
 
 }

@@ -45,6 +45,20 @@ exports.existeEstabelecimentoId = async(req, res, next) => {
 
 }
 
+exports.existeImgId = async(req, res, next) => {
+
+    const { id } = req.params
+
+    const estabelecimento = await Estabelecimento.findByPk(id)
+
+    if(!!estabelecimento.imagem) {
+        return next()
+    }
+
+    return res.status(404).json({ mensagem: 'Não há imagem neste estabelecimento!'})
+
+}
+
 exports.verificaBody = async(req, res, next) => {
 
     const { nome, imagem, endereco, categoria } = req.body
@@ -75,36 +89,5 @@ exports.verificaUsuServ = async(req, res, next) => {
     }
 
     return next()
-
-}
-
-exports.verificaBodyIgual = async(req, res, next) => {
-
-    const { id } = req.params
-    const { nome, imagem, endereco, categoria } = await estabelecimentoRepo.getById(id)
-
-    if(
-        nome !== req.body.nome 
-        || endereco !== req.body.endereco 
-        || imagem !== req.body.imagem 
-        || categoria !== req.body.categoria
-    ) {
-        return next()
-    }
-
-    return res.status(400).json({ mensagem: 'Para atualizar usuário alguma informação deve ser diferente!'})
-}
-
-exports.existeImgId = async(req, res, next) => {
-
-    const { id } = req.params
-
-    const estabelecimento = await Estabelecimento.findByPk(id)
-
-    if(!!estabelecimento.imagem) {
-        next()
-    }
-
-    return res.status(400).json({ mensagem: 'Não há imagem neste estabelecimento!'})
 
 }

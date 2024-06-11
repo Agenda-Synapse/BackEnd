@@ -1,12 +1,53 @@
 const Estabelecimento = require('../models/EstabelecimentoModel')
-const { v4 } = require('uuid');
-const path = require('path');
+const Servico = require('../models/ServicoModel')
+const Usuario = require('../models/UsuarioModel')
+const { v4 } = require('uuid')
+const path = require('path')
 const fs = require('fs')
 
-exports.getAll = async() => {
+exports.getAll = async(query) => {
 
-    const todosEstabelecimentos = await Estabelecimento.findAll()
-    return todosEstabelecimentos
+    const { filtro } = query
+
+    if(!!query) {
+        let todosEstabelecimentos = await Estabelecimento.findAll({
+
+            where: { categoria: filtro }
+        })
+
+        todosEstabelecimentos = todosEstabelecimentos.map( estabelecimento => {
+            estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
+            return estabelecimento
+        })
+    
+        return todosEstabelecimentos
+
+    } 
+    else {
+
+        let todosEstabelecimentos = await Estabelecimento.findAll()
+
+        todosEstabelecimentos = todosEstabelecimentos.map( estabelecimento => {
+            estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
+            return estabelecimento
+        })
+    
+        return todosEstabelecimentos
+        
+    }
+
+}
+
+// Get all serviços
+exports.getAllServicos = async(parametro) => {
+    
+    const { id } = parametro // id do estabelecimento
+
+    const todosServicos = await Servico.findAll({
+        where: { idEstabelecimento: id }
+    })
+
+    return todosServicos
 
 }
 
@@ -15,6 +56,7 @@ exports.getById = async(parametro) => {
 
         const { id } = parametro 
         const estabelecimento = await Estabelecimento.findByPk(id)
+        estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
         return estabelecimento
     
     } 
@@ -43,7 +85,7 @@ exports.getImgById = async(parametro) => {
 exports.create = async(corpo) => {
 
     const base64Data = corpo.imagem.replace(/^data:image\/png;base64,/, "");
-    const imgPath = `images/${v4()}.png`;
+    const imgPath = `imgs_estabelecimento/${v4()}.png`;
     fs.writeFileSync(imgPath, base64Data, 'base64')
     corpo.imagem = imgPath
 
@@ -62,7 +104,7 @@ exports.update = async(parametro, corpo) => {
         await this.delimg(parametro)  
 
         const base64Data = corpo.imagem.replace(/^data:image\/png;base64,/, "");
-        const imgPath = `images/${v4()}.png`;
+        const imgPath = `imgs_estabelecimento/${v4()}.png`;
         fs.writeFileSync(imgPath, base64Data, 'base64')
         corpo.imagem = imgPath
     }
@@ -89,7 +131,8 @@ exports.delImg = async(parametro) => {
     const estabelecimento = await Estabelecimento.findByPk(id)
 
     const realImgPath = path.join(process.cwd(), estabelecimento.imagem)
-    console.log(realImgPath)
+    estabelecimento.imagem = ''
+    estabelecimento.save()
     await fs.unlinkSync(realImgPath)
 
 }

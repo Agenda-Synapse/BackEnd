@@ -23,7 +23,8 @@ const Estabelecimento = database.define('estabelecimento', {
         allowNull: false
     },
     categoria: {
-        type: Sequelize.STRING
+        type: Sequelize.ENUM('unhas','barbearia','maquiagem','salão de beleza'),
+        allowNull: false
     }
 })
 
