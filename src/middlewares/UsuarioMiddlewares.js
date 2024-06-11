@@ -7,11 +7,21 @@ const bcrypt = require('bcrypt')
 /* Verifica se já existe algum usuário com o mesmo login */
 exports.existe = async(req, res, next) => {
 
-    const { telefone } = req.body
+    const { telefone, email } = req.body
     
-    const resultado = await Usuario.findOne({
+    const resultado1 = await Usuario.findOne({
         where: { telefone }
     })
+
+    if(!!email) {
+        const resultado2 = await Usuario.findOne({
+            where: { email }
+        })
+
+        if(!resultado && !resultado2) {
+            return res.status(200).json({ mensagem: 'Usuario já existe!' })
+        }
+    }
 
     if(!!resultado) {
         return res.status(200).json({ mensagem: 'Usuario já existe!' })
