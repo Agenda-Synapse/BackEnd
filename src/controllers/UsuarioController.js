@@ -8,7 +8,7 @@ exports.getAll = async(req, res) => {
 
     } catch (error) {
 
-        console.log(error)
+        console.error(error)
         return res.status(500).json({ mensagem: 'Não foi possível buscar por usuarios' })
 
     }
@@ -22,7 +22,7 @@ exports.getById = async(req, res) => {
 
     } catch (error) {
 
-        console.log(error)
+        console.error(error)
         return res.status(500).json({ mensagem: 'Não foi possível encontrar usuário!' })
 
     }
@@ -36,7 +36,7 @@ exports.create = async(req, res) => {
 
     } catch (error) {
         
-        console.log(error)
+        console.error(error)
         return res.status(500).json({ mensagem: 'Não foi possível criar usuário!' })
 
     }
@@ -51,7 +51,7 @@ exports.update = async(req, res) => {
 
     } catch (error) {
         
-        console.log(error)
+        console.error(error)
         return res.status(500).json({ mensagem: 'Não foi possível atualizar usuário!' })
 
     }
@@ -65,7 +65,7 @@ exports.del = async(req, res) => {
 
     } catch (error) {
 
-        console.log(error)
+        console.error(error)
         return res.status(500).json({ mensagem: 'Não foi possível excluir usuário!' })
         
     }
@@ -75,12 +75,12 @@ exports.geraToken = async(req, res) => {
 
     try {
     
-        const token = await usuarioRepo.geraToken(req.body)
+        const token = await usuarioRepo.geraerrorToken(req.body)
         return res.status(200).json({ auth: true, token })
 
     } catch (error) {
         
-        console.log(error)
+        console.error(error)
         return res.status(500).json({ mensagem: 'Erro ao gerar token!' })
 
     }
