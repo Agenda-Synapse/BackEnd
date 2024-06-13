@@ -158,19 +158,19 @@ exports.hashSenha = async(req, res, next) => {
 }
 
 exports.verificaToken = async(req, res, next) => {
-    const token = req.header['authorization']
+    const token = req.headers.authorization
 
     try {
 
-        jwt.verify(token, process.env.SECRET, (decoded) => {
-            req.usuarioId = decoded.usuarioId
-        })
+        const decoded = jwt.verify(token, process.env.SECRET)
+        req.usuarioId = decoded.usuarioId
+        console.log(decoded.usuarioId)
         
         return next()
         
     } catch (error) {
         
-        console.log(error)
+        console.error(error)
         return res.status(401).end()
 
     }

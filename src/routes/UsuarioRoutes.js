@@ -7,7 +7,7 @@ const globalMid = require('../middlewares/middlewareGlobal')
 const router = Router()
 
 // GetALL
-router.get('/usuarios', usuarioController.getAll)
+router.get('/usuarios',usuarioController.getAll)
 
 //GetById
 router.get(
