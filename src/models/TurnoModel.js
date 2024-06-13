@@ -18,7 +18,11 @@ const Turno = database.define('turno', {
         type: Sequelize.TIME,
         allowNull: false
     },
-    dias_semana: {
+    dia_inicio: {
+        type: Sequelize.ENUM('Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'),
+        allowNull: false
+    },
+    dia_fim: {
         type: Sequelize.ENUM('Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'),
         allowNull: false
     }
