@@ -91,3 +91,10 @@ exports.verificaUsuServ = async(req, res, next) => {
     return next()
 
 }
+
+exports.status = async(req, res, next) => {
+    const tempo = new Date()
+    const horas = tempo.getHours() < 10 ? `0${tempo.getHours()}` : `${tempo.getHours()}`
+    const horario = `${horas}:${tempo.getMinutes()}`
+   
+}

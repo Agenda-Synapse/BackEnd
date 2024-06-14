@@ -9,7 +9,7 @@ exports.getAll = async(query) => {
 
     const { filtro } = query
 
-    if(!!query) {
+    if(typeof filtro !== 'undefined') {
         let todosEstabelecimentos = await Estabelecimento.findAll({
 
             where: { categoria: filtro }
@@ -23,18 +23,15 @@ exports.getAll = async(query) => {
         return todosEstabelecimentos
 
     } 
-    else {
 
-        let todosEstabelecimentos = await Estabelecimento.findAll()
+    let todosEstabelecimentos = await Estabelecimento.findAll()
 
-        todosEstabelecimentos = todosEstabelecimentos.map( estabelecimento => {
-            estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
-            return estabelecimento
-        })
-    
-        return todosEstabelecimentos
-        
-    }
+    todosEstabelecimentos = todosEstabelecimentos.map( estabelecimento => {
+        estabelecimento.imagem = `http://${process.env.IP}:${process.env.PORT}/estabelecimentos/img/${estabelecimento.id}`
+        return estabelecimento
+    })
+
+    return todosEstabelecimentos
 
 }
 

@@ -32,8 +32,7 @@ const Usuario = database.define('usuario', {
     },
     cargo: {
         type: Sequelize.ENUM('cliente','proprietario')
-    },
-    status: Sequelize.BOOLEAN
+    }
 })
 
 Usuario.belongsTo(Estabelecimento, {

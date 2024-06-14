@@ -8,12 +8,17 @@ const globalMid = require('../middlewares/middlewareGlobal')
 const router = Router()
 
 // GetALL
-router.get('/estabelecimentos', estabelecimentoController.getAll)
+router.get(
+    '/estabelecimentos', 
+    estabelecimentoMid.status,
+    estabelecimentoController.getAll
+)
 
 // GetById
 router.get(
     '/estabelecimentos/:id', 
     globalMid.verificaParametro, 
+    estabelecimentoMid.status,
     estabelecimentoMid.existeEstabelecimentoId, 
     estabelecimentoController.getById
 )
@@ -22,6 +27,7 @@ router.get(
 router.get(
     '/estabelecimentos/servicos/:id', 
     globalMid.verificaParametro, 
+    estabelecimentoMid.status,
     estabelecimentoMid.existeEstabelecimentoId,
     ServicoMid.existeServicoId,
     estabelecimentoController.getServicoById

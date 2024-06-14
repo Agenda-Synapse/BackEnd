@@ -25,6 +25,10 @@ const Estabelecimento = database.define('estabelecimento', {
     categoria: {
         type: Sequelize.ENUM('unhas','barbearia','maquiagem','salão de beleza'),
         allowNull: false
+    },
+    status: {
+        type: Sequelize.BOOLEAN,
+        defaultVelue: true
     }
 })
 
