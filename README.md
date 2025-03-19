@@ -10,7 +10,7 @@
 
 ## Sobre o projeto
 
-O Agendaaki é um micro-Saas de agendamento de serviços de beleza. Nele é possível tanto agendar, como cliente, quanto criar estabelecimentos e serviços, como proprietário. As categorias de estabelecimento são: barbearia, maquiagem, unhas e salão de cabelo. Dentro de cada estabelecimento, pode-se criar qualquer serviço relacionado a área, sendo definido nome e preço.
+O Agendaaki é um micro-Saas de agendamento de serviços de beleza. Nele é possível tanto agendar horários como cliente, quanto criar estabelecimentos e serviços como proprietário. As categorias de estabelecimento são: barbearia, maquiagem, unhas e salão de cabelo. Dentro de cada estabelecimento, pode-se criar qualquer serviço relacionado a área, sendo definido nome e preço.
 
 ## Postman
 https://www.postman.com/api-synapse/workspace/agendaaki-api/collection/34531020-2a068626-7c91-4df0-849f-1886c7dbe79f?action=share&creator=34531020
